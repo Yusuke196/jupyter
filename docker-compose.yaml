@@ -1,0 +1,14 @@
+version: '3'
+services:
+  jupyter:
+    # ここで指定した場所にあるDockerfileがbuildの際に使用される
+    build: .
+    ports:
+      # localhost:8800にアクセスすると、コンテナ側の8888に接続するよう設定
+      - '8800:8888'
+    volumes:
+      # マシン側のworkフォルダとコンテナ内の/home/jovyan/workを同期させる
+      - './work:/home/jovyan/work'
+      - '/Users/yusukeide/Desktop:/home/jovyan/desktop'
+    # これがないとアクセス時にtokenを要求される
+    command: start-notebook.sh --NotebookApp.token=''
